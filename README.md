@@ -11,5 +11,20 @@ It adds basic PR building, dependabot integration, testing, coverage etc.
 
 1. Copy the contents of this repo into a new repo.
 2. Rename `cmd/go-cli-github` and update the links at the top of the README. Send a PR for this change, and merge it once green.
-3. Protect the main branch with requirements on lint/test as desired.
-4. That's it.
+3. Go to repository Settings > General:
+  * Disable wiki and projects
+  * Allow only merge commits for Pull Requests
+  * Allow auto-merge
+  * Automatically delete head branches
+4. Go to repository Settings > Branches and add branch protection to `main`, and enable:
+  * Require a PR before merging
+    * Dismiss stale pull request approvals
+  * Require status checks to pass before merging
+    * Require branches to be up-to-date before merging.
+    * Required status checks:
+      * lint
+      * commitlint
+      * build
+      * go-test
+  * Include administrators
+5. That's it.
