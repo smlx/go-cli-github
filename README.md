@@ -27,5 +27,8 @@ It adds basic PR building, dependabot integration, testing, coverage etc.
       * build
       * go-test
   * Include administrators
-5. When ready to release, rename the target branch in the release workflow from `foo` to `main`, and send a PR.
-6. That's it.
+5. Go to repository Settings > Code security and analysis, and enable:
+  * Dependabot alerts
+  * Dependabot security updates
+6. When ready to release, rename the target branch in the release workflow from `foo` to `main`, and send a PR.
+7. That's it.
