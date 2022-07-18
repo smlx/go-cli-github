@@ -18,8 +18,6 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: "^1.18"
-    - name: Install Dependencies
-      run: sudo apt-get update && sudo apt-get -u install libpcsclite-dev
     - name: Calculate coverage
       run: |
         go test -v -covermode=count -coverprofile=coverage.out.raw -coverpkg=./... ./...
