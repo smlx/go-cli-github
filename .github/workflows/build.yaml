@@ -1,0 +1,28 @@
+name: Build
+on: pull_request
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: "^1.18"
+    - name: Set up environment
+      run: echo "GOVERSION=$(go version)" >> $GITHUB_ENV
+    - name: Run GoReleaser
+      uses: goreleaser/goreleaser-action@v3
+      with:
+        version: latest
+        args: build --snapshot --rm-dist
+    - name: Tar up binaries
+      # work around limitations in the upload/download artifact actions
+      # https://github.com/actions/download-artifact#limitations
+      run: tar -cvf dist.tar dist
+    - name: Upload binaries tar file
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist.tar
+        path: dist.tar
