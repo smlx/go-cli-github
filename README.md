@@ -9,8 +9,16 @@ It adds basic PR building, dependabot integration, testing, coverage etc.
 
 ### How to use
 
-1. Copy the contents of this repo into a new directory. Update the `release` workflow branch from `main` to `foo` to disable it, commit all the files, and push to `main` on a new repo.
-2. Rename `cmd/go-cli-github`, update `.goreleaser.yml`, and update the links at the top of the README. Send a PR for this change, and merge it once green.
+1. Copy the contents of this repo into a new directory.
+   ```bash
+   git clone git@github.com:smlx/go-cli-github.git $PROJECT_DIR && rm -rf ./$PROJECT_DIR/.git
+   ```
+2. Update the `release` workflow branch from `main` to `foo` to disable it, commit all the files, and push to `main` on a new repo.
+2. Update for your project, send a PR and merge it once green:
+   * rename `cmd/go-cli-github` to `cmd/$YOUR_COMMAND`
+   * update `.goreleaser.yml` to build `cmd/$YOUR_COMMAND`
+   * update the links at the top of the README
+   * update the `build`, `release`, and `tag-to-release` workflows, replacing `go-cli-github` with `$YOUR_COMMAND`.
 3. Go to repository Settings > General:
   * Disable wiki and projects
   * Allow only merge commits for Pull Requests
