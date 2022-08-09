@@ -33,10 +33,12 @@ It adds basic PR building, dependabot integration, testing, coverage etc.
    * Require status checks to pass before merging
      * Require branches to be up-to-date before merging.
      * Required status checks:
-       * lint
-       * commitlint
+       * CodeQL
        * build
+       * buildimage
+       * commitlint
        * go-test
+       * lint
    * Include administrators
 5. Go to repository Settings > Code security and analysis, and enable:
    * Dependabot alerts
