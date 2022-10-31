@@ -4,14 +4,6 @@ import (
 	"github.com/alecthomas/kong"
 )
 
-var (
-	commit      string
-	date        string
-	goVersion   string
-	projectName string
-	version     string
-)
-
 // CLI represents the command-line interface.
 type CLI struct {
 	Version VersionCmd `kong:"cmd,help='Print version information'"`

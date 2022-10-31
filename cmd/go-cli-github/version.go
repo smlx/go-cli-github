@@ -5,6 +5,15 @@ import (
 	"fmt"
 )
 
+// These variables are set by GoReleaser during the build.
+var (
+	commit      string
+	date        string
+	goVersion   string
+	projectName string
+	version     string
+)
+
 // VersionCmd represents the `version` command.
 type VersionCmd struct{}
 
