@@ -11,14 +11,14 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v4
       with:
-        go-version: "^1.19"
+        go-version: stable
     - name: Set up environment
-      run: echo "GOVERSION=$(go version)" >> $GITHUB_ENV
+      run: echo "GOVERSION=$(go version)" >> "$GITHUB_ENV"
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v5
       with:
         version: latest
-        args: build --snapshot --rm-dist
+        args: build --snapshot --clean
     - name: Tar up binaries
       # work around limitations in the upload/download artifact actions
       # https://github.com/actions/download-artifact#limitations
@@ -29,6 +29,8 @@ jobs:
         name: dist.tar
         path: dist.tar
   buildimage:
+    permissions:
+      packages: write
     if: ${{ !startsWith(github.head_ref, 'dependabot/') }}
     strategy:
       matrix:
