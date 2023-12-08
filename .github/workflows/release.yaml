@@ -3,8 +3,9 @@ on:
   push:
     branches:
     - main
+permissions: read-all
 jobs:
-  tag:
+  release-tag:
     permissions:
       # create tag
       contents: write
@@ -13,16 +14,14 @@ jobs:
       new-tag: ${{ steps.bump-tag.outputs.new }}
       new-tag-version: ${{ steps.bump-tag.outputs.new_tag_version }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
         fetch-depth: 0
-    - name: Configure Git
+    - name: Configure git
       run: |
         git config --global user.name "$GITHUB_ACTOR"
         git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-    - name: Install Go
-      uses: actions/setup-go@v5
+    - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
       with:
         go-version: stable
     - name: Install ccv
@@ -38,7 +37,7 @@ jobs:
           echo "new=true" >> "$GITHUB_OUTPUT"
           echo "new_tag_version=$(git tag --points-at HEAD)" >> "$GITHUB_OUTPUT"
         fi
-  release:
+  release-build:
     permissions:
       # create release
       contents: write
@@ -46,34 +45,54 @@ jobs:
       packages: write
       # use OIDC token for signing
       id-token: write
-    needs: tag
-    if: needs.tag.outputs.new-tag == 'true'
+    needs: release-tag
+    if: needs.release-tag.outputs.new-tag == 'true'
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       with:
         fetch-depth: 0
-    - name: Install Go
-      uses: actions/setup-go@v5
+    - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
       with:
         go-version: stable
     - name: Login to GHCR
-      uses: docker/login-action@v3
+      uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Set up environment
       run: echo "GOVERSION=$(go version)" >> "$GITHUB_ENV"
-    - name: Install Cosign
-      uses: sigstore/cosign-installer@v3.2.0
-    - name: Insall Syft
-      uses: anchore/sbom-action/download-syft@v0.15.1
-    - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v5
+    - uses: sigstore/cosign-installer@1fc5bd396d372bee37d608f955b336615edf79c8 # v3.2.0
+    - uses: anchore/sbom-action/download-syft@5ecf649a417b8ae17dc8383dc32d46c03f2312df # v0.15.1
+    - uses: goreleaser/goreleaser-action@7ec5c2b0c6cdda6e8bbb49444bc797dd33d74dd8 # v5.0.0
       with:
         version: latest
         args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release-ossf-analysis:
+    name: OSSF scorecard analysis
+    needs: release-build
+    runs-on: ubuntu-latest
+    permissions:
+      # Needed if using Code scanning alerts
+      security-events: write
+      # Needed for GitHub OIDC token if publish_results is true
+      id-token: write
+    steps:
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+    - name: Run analysis
+      uses: ossf/scorecard-action@0864cf19026789058feabb7e87baa5f140aac736 # v2.3.1
+      with:
+        results_file: results.sarif
+        results_format: sarif
+        # Publish the results for public repositories to enable scorecard badges. For more details, see
+        # https://github.com/ossf/scorecard-action#publishing-results.
+        # For private repositories, `publish_results` will automatically be set to `false`, regardless
+        # of the value entered here.
+        publish_results: true
+    - name: Upload SARIF results to code scanning
+      uses: github/codeql-action/upload-sarif@c0d1daa7f7e14667747d73a7dbbe8c074bc8bfe2 # v2.22.9
+      with:
+        sarif_file: results.sarif

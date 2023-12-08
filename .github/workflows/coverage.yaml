@@ -3,19 +3,18 @@ on:
   push:
     branches:
     - main
-
+permissions:
+  contents: read
 jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
     - name: Configure git
       run: |
         git config --global user.name "$GITHUB_ACTOR"
         git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-    - name: Set up go
-      uses: actions/setup-go@v5
+    - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
       with:
         go-version: stable
     - name: Calculate coverage
@@ -23,8 +22,8 @@ jobs:
         go test -v -covermode=count -coverprofile=coverage.out.raw -coverpkg=./... ./...
         grep -v mock_ coverage.out.raw > coverage.out
     - name: Convert coverage to lcov
-      uses: jandelgado/gcov2lcov-action@v1
-    - name: Coveralls
-      uses: coverallsapp/github-action@v2.2.3
+      uses: jandelgado/gcov2lcov-action@c680c0f7c7442485f1749eb2a13e54a686e76eb5 # v1.0.9
+    - name: Upload coverage to Coveralls
+      uses: coverallsapp/github-action@3dfc5567390f6fa9267c0ee9c251e4c8c3f18949 # v2.2.3
       with:
         github-token: ${{ secrets.github_token }}
