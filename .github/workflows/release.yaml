@@ -54,6 +54,8 @@ jobs:
         go-version: stable
     - name: Set up environment
       run: echo "GOVERSION=$(go version)" >> "$GITHUB_ENV"
+    - name: Install Cosign
+      uses: sigstore/cosign-installer@v3.2.0
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v5
       with:
@@ -110,3 +112,9 @@ jobs:
         labels: ${{ steps.docker_metadata.outputs.labels }}
         file: deploy/${{ matrix.binary }}/Dockerfile
         context: dist/${{ matrix.binary }}_linux_amd64_v1
+    - name: Install Cosign
+      uses: sigstore/cosign-installer@v3.2.0
+    - name: Sign the container image
+      run: >
+        echo "${{ steps.docker_metadata.outputs.tags }}" |
+        while read -r tag; do cosign sign --yes "$tag"; done

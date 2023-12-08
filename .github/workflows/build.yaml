@@ -31,6 +31,7 @@ jobs:
   buildimage:
     permissions:
       packages: write
+      id-token: write
     if: ${{ !startsWith(github.head_ref, 'dependabot/') }}
     strategy:
       matrix:
