@@ -6,6 +6,7 @@ on:
 jobs:
   tag:
     permissions:
+      # create tag
       contents: write
     runs-on: ubuntu-latest
     outputs:
@@ -39,7 +40,11 @@ jobs:
         fi
   release:
     permissions:
+      # create release
+      contents: write
+      # push docker images to regsitry
       packages: write
+      # use OIDC token for signing
       id-token: write
     needs: tag
     if: needs.tag.outputs.new-tag == 'true'
