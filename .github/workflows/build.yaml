@@ -1,9 +1,9 @@
 name: Build
-permissions: read-all
 on:
   pull_request:
     branches:
     - main
+permissions: read-all
 jobs:
   build-binaries:
     permissions:
