@@ -10,8 +10,16 @@ builds:
     -X "main.version={{.Version}}"
   env:
   - CGO_ENABLED=0
+  goos:
+  - linux
+  - darwin
+  goarch:
+  - amd64
+  - arm64
+
 sboms:
 - artifacts: archive
+
 signs:
 - cmd: cosign
   signature: "${artifact}.sig"
@@ -23,3 +31,36 @@ signs:
   - "${artifact}"
   - "--yes"
   artifacts: checksum
+
+dockers:
+- image_templates:
+  - "smlx/go-cli-github:{{ .Version }}-amd64"
+  use: buildx
+  dockerfile: deploy/go-cli-github/Dockerfile
+  build_flag_templates:
+  - "--platform=linux/amd64"
+- image_templates:
+  - "smlx/go-cli-github:{{ .Version }}-arm64v8"
+  use: buildx
+  goarch: arm64
+  dockerfile: deploy/go-cli-github/Dockerfile
+  build_flag_templates:
+  - "--platform=linux/arm64/v8"
+
+docker_manifests:
+- name_template: "smlx/go-cli-github:{{ .Version }}"
+  image_templates:
+  - "foo/bar:{{ .Version }}-amd64"
+  - "foo/bar:{{ .Version }}-arm64v8"
+- name_template: "smlx/go-cli-github:latest"
+  image_templates:
+  - "foo/bar:{{ .Version }}-amd64"
+  - "foo/bar:{{ .Version }}-arm64v8"
+
+docker_signs:
+- args:
+  - "sign"
+  - "${artifact}@${digest}"
+  - "--yes"
+  artifacts: all
+  output: true
