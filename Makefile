@@ -16,3 +16,7 @@ generate: mod-tidy
 build:
 	GOVERSION=$$(go version) \
 						goreleaser build --clean --debug --single-target --snapshot
+
+.PHONY: fuzz
+fuzz: mod-tidy generate
+	go test -fuzz='^Fuzz' -fuzztime=10s -v ./internal/server
