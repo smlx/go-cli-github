@@ -1,4 +1,4 @@
-# Go CLI Github
+# Go CLI GitHub
 
 [![Release](https://github.com/smlx/go-cli-github/actions/workflows/release.yaml/badge.svg)](https://github.com/smlx/go-cli-github/actions/workflows/release.yaml)
 [![Coverage](https://coveralls.io/repos/github/smlx/go-cli-github/badge.svg?branch=main)](https://coveralls.io/github/smlx/go-cli-github?branch=main)
@@ -26,16 +26,16 @@ It also automatically builds and tests your code using [GitHub Actions](https://
 
 ## How to use
 
-First set up the Github repo
+First set up the GitHub repo
 
-1. Create a new empty Github repository.
+1. Create a new empty GitHub repository.
 
 Then push some code to main:
 
 1. Install [gonew](https://go.dev/blog/gonew) and run this command, replacing the last argument with the name of your new module:
 
     ```bash
-    gonew github.com/smlx/go-cli-github github.com/smlx/newproject
+    gonew github.com/smlx/go-cli-github@main github.com/smlx/newproject
     ```
 
 1. Create the git repo and push to `main` (which will become the default branch):
@@ -46,7 +46,7 @@ Then push some code to main:
     git branch -M main
     git remote add origin git@github.com:smlx/newproject.git
     git add .
-    git commit -a
+    git commit -am 'chore: create repository from template'
     git push -u origin main
     ```
 
@@ -56,21 +56,21 @@ Then customize the code for your repository:
 
 1. Update the code for your project:
 
+    * rename `cmd/go-cli-github` to `cmd/$YOUR_COMMAND`
     * rename `deploy/go-cli-github` to `deploy/$YOUR_COMMAND`
     * update `deploy/$YOUR_COMMAND/Dockerfile`
-    * rename `cmd/go-cli-github` to `cmd/$YOUR_COMMAND`
-    * update module in `cmd/$YOUR_COMMAND/*.go`, `internal/server/serve_test.go`
+    * update `.github/workflows/build.yaml`, replacing `go-cli-github` with `$YOUR_COMMAND`.
     * update `.goreleaser.yml` to build `cmd/$YOUR_COMMAND`
     * update the links at the top of the README
-    * update the `build`, `release`, and `tag-to-release` workflows, replacing `go-cli-github` with `$YOUR_COMMAND`.
 
 1. Commit and push:
 
     ```bash
-    git commit -a
+    git add .
+    git commit -am 'chore: update template for new project'
     git push -u origin setup
     ```
-1. Open a PR, ensure all the actions are green, then merge the PR.
+1. Open a PR, wait until all the checks go green, then merge the PR.
 
 Configure the repository:
 
