@@ -71,6 +71,7 @@ Configure the repository:
     * Dependabot security updates
         * Secret scanning
             * Push protection
+    * Private vulnerability reporting
 
 1. Go to repository Settings > Actions > General:
 
