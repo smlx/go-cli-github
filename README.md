@@ -83,15 +83,7 @@ Configure the repository:
 
 1. Go to repository Settings > Code security and analysis, and enable:
 
-    * Dependabot alerts
-    * Dependabot security updates
-        * Secret scanning
-            * Push protection
     * Private vulnerability reporting
-
-1. Go to repository Settings > Actions > General:
-
-    * Set Workflow permissions to "Read repository contents and package permissions"
 
 1. Go to repository Settings > Rules > Rulesets, and import the `protect-default-branch.json` ruleset.
 
