@@ -1,5 +1,6 @@
 builds:
 - main: ./cmd/go-cli-github
+  binary: go-cli-github
   ldflags:
   - >
     -s -w
