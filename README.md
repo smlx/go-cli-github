@@ -84,11 +84,12 @@ Configure the repository:
         * Require branches to be up-to-date before merging.
         * Required status checks:
             * CodeQL
-            * build
-            * buildimage
-            * commitlint
-            * go-test
-            * lint
+            * lint-actions
+            * lint-commits
+            * lint-go
+            * test-go
+            * dependency-review
+            * build-binaries
     * Include administrators
 
 1. That's it.
