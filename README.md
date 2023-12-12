@@ -76,20 +76,6 @@ Configure the repository:
 
     * Set Workflow permissions to "Read repository contents and package permissions"
 
-1. Go to repository Settings > Branches and add branch protection to `main`, and enable:
-
-    * Require a PR before merging
-        * Dismiss stale pull request approvals
-    * Require status checks to pass before merging
-        * Require branches to be up-to-date before merging.
-        * Required status checks:
-            * CodeQL
-            * lint-actions
-            * lint-commits
-            * lint-go
-            * test-go
-            * dependency-review
-            * build-binaries
-    * Include administrators
+1. Go to repository Settings > Rules > Rulesets, and import the `protect-default-branch.json` ruleset.
 
 1. That's it.
