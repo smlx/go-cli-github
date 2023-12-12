@@ -5,10 +5,26 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/smlx/go-cli-github)](https://goreportcard.com/report/github.com/smlx/go-cli-github)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/smlx/go-cli-github/badge)](https://securityscorecards.dev/viewer/?uri=github.com/smlx/go-cli-github)
 
-This repo is an example with basic workflows for a Go CLI tool hosted on Github.
-It adds basic PR building, dependabot integration, testing, coverage etc.
+This repository is a template for a Go CLI tool or service.
+It is quite opinionated about security and release engineering, but hopefully in a good way.
 
-### How to use
+It comes pre-configured for integration with GitHub-specific features such as [Dependabot security tooling](https://docs.github.com/en/code-security/dependabot), [CodeQL](https://codeql.github.com/), and [branch protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+It also automatically builds and tests your code using [GitHub Actions](https://docs.github.com/en/actions).
+
+## Features
+
+* Use [GoReleaser](https://goreleaser.com/) to automatically build and create GitHub Releases and Docker images on merge to `main`.
+
+    * This uses the [Conventional Commits Versioner](https://github.com/smlx/ccv) to automatically version each release.
+
+* Lint your commit messages, and your Go, GitHub Action, and Dockerfile code.
+* Test Pull Requests using `go test`.
+* Build Docker images from Pull Requests for manual testing and review.
+* Static code analysis using [CodeQL](https://codeql.github.com/) and [Go Report Card](https://goreportcard.com/).
+* Test coverage analysis using [Coveralls](https://coveralls.io/).
+* Security analysis using [OpenSSF](https://securityscorecards.dev).
+
+## How to use
 
 First set up the Github repo
 
