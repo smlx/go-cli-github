@@ -90,3 +90,10 @@ Configure the repository:
 1. Go to repository Settings > Rules > Rulesets, and import the `protect-default-branch.json` ruleset.
 
 1. That's it.
+
+## How to contribute
+
+Issues are welcome.
+
+PRs are also welcome, but keep in mind that this is a very opinionated template, so not all changes will be accepted.
+PRs also need to ensure that test coverage remains high, and best practices are followed.
