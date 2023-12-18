@@ -18,6 +18,9 @@ builds:
   - amd64
   - arm64
 
+changelog:
+  use: github-native
+
 sboms:
 - artifacts: archive
 

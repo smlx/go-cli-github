@@ -5,6 +5,7 @@
 [![Coverage](https://coveralls.io/repos/github/smlx/go-cli-github/badge.svg?branch=main)](https://coveralls.io/github/smlx/go-cli-github?branch=main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/smlx/go-cli-github)](https://goreportcard.com/report/github.com/smlx/go-cli-github)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/smlx/go-cli-github/badge)](https://securityscorecards.dev/viewer/?uri=github.com/smlx/go-cli-github)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8168/badge)](https://www.bestpractices.dev/projects/8168)
 
 This repository is a template for a Go CLI tool or service.
 It is quite opinionated about security and release engineering, but hopefully in a good way.
@@ -89,3 +90,10 @@ Configure the repository:
 1. Go to repository Settings > Rules > Rulesets, and import the `protect-default-branch.json` ruleset.
 
 1. That's it.
+
+## How to contribute
+
+Issues are welcome.
+
+PRs are also welcome, but keep in mind that this is a very opinionated template, so not all changes will be accepted.
+PRs also need to ensure that test coverage remains high, and best practices are followed.
