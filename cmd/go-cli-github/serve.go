@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/smlx/go-cli-github/internal/server"
 )
@@ -11,6 +12,6 @@ type ServeCmd struct{}
 
 // Run the serve command.
 func (*ServeCmd) Run() error {
-	fmt.Println(server.Serve())
+	fmt.Println(server.New(time.Now).Serve())
 	return nil
 }
