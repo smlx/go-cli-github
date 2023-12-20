@@ -3,11 +3,12 @@ on:
   push:
     branches:
     - main
-permissions: read-all
+permissions: {}
 jobs:
   ossf-scorecard-analysis:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       # Needed if using Code scanning alerts
       security-events: write
       # Needed for GitHub OIDC token if publish_results is true
