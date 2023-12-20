@@ -2,7 +2,7 @@
 
 [![Release](https://github.com/smlx/go-cli-github/actions/workflows/release.yaml/badge.svg)](https://github.com/smlx/go-cli-github/actions/workflows/release.yaml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/smlx/go-cli-github.svg)](https://pkg.go.dev/github.com/smlx/go-cli-github)
-[![Coverage](https://coveralls.io/repos/github/smlx/go-cli-github/badge.svg?branch=main)](https://coveralls.io/github/smlx/go-cli-github?branch=main)
+![coverage](https://raw.githubusercontent.com/smlx/go-cli-github/badges/.badges/main/coverage.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/smlx/go-cli-github)](https://goreportcard.com/report/github.com/smlx/go-cli-github)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/smlx/go-cli-github/badge)](https://securityscorecards.dev/viewer/?uri=github.com/smlx/go-cli-github)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8168/badge)](https://www.bestpractices.dev/projects/8168)
@@ -52,9 +52,21 @@ Then push some code to main:
     git push -u origin main
     ```
 
+1. Create the `badges` branch for storing the README coverage badge.
+
+    ```bash
+    git checkout --orphan badges
+    git rm -rf .
+    rm -f .gitignore
+    echo 'This branch exists only to contains the coverage badge in the README on `main`.' > README.md
+    git add README.md
+    git commit -m 'chore: initialize the badges branch'
+    git push origin badges
+    ```
+
 Then customize the code for your repository:
 
-1. Check out a new branch to set up the repo `git checkout -b setup`
+1. Check out a new branch to set up the repo `git checkout -b setup main`
 
 1. Update the code for your project:
 
