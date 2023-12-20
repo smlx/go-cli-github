@@ -52,9 +52,21 @@ Then push some code to main:
     git push -u origin main
     ```
 
+1. Create the `badges` branch for storing the README coverage badge.
+
+    ```bash
+    git checkout --orphan badges
+    git rm -rf .
+    rm -f .gitignore
+    echo 'This branch exists only to contains the coverage badge in the README on `main`.' > README.md
+    git add README.md
+    git commit -m 'chore: initialize the badges branch'
+    git push origin badges
+    ```
+
 Then customize the code for your repository:
 
-1. Check out a new branch to set up the repo `git checkout -b setup`
+1. Check out a new branch to set up the repo `git checkout -b setup main`
 
 1. Update the code for your project:
 
