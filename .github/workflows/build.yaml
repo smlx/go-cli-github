@@ -49,4 +49,4 @@ jobs:
         labels: ${{ steps.docker_metadata.outputs.labels }}
         file: Dockerfile
         build-args: BINARY=${{ matrix.binary }}
-        context: dist/${{ env.GITHUB_REPOSITORY_NAME }}_linux_amd64_v1
+        context: dist/${{ matrix.binary }}_linux_amd64_v1
