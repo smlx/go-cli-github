@@ -20,3 +20,8 @@ build:
 .PHONY: fuzz
 fuzz: mod-tidy generate
 	go test -fuzz='^Fuzz' -fuzztime=10s -v ./internal/server
+
+.PHONY: cover
+cover: mod-tidy generate
+	go test -v -covermode=atomic -coverprofile=cover.out -coverpkg=./... ./...
+	go tool cover -html=cover.out
