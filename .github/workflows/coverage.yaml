@@ -16,7 +16,7 @@ jobs:
         go-version: stable
     - name: Calculate coverage
       run: |
-        go test -v -covermode=count -coverprofile=cover.out.raw -coverpkg=./... ./...
+        go test -v -covermode=atomic -coverprofile=cover.out.raw -coverpkg=./... ./...
         # remove mocks from coverage calculation
         grep -v mock_ cover.out.raw > cover.out
     - name: Generage coverage badge
