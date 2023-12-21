@@ -47,6 +47,10 @@ func TestGreet(t *testing.T) {
 			expect:      "time travel detected",
 			expectError: true,
 		},
+		"late birthday": {
+			input:  []string{"Foo", "2000-12-22"},
+			expect: "Hello Foo, happy belated birthday for 355 days ago.",
+		},
 	}
 	for name, tc := range testCases {
 		t.Run(name, func(tt *testing.T) {
