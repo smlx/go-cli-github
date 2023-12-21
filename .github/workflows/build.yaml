@@ -39,7 +39,7 @@ jobs:
       uses: docker/metadata-action@9dc751fe249ad99385a2583ee0d084c400eee04e # v5.4.0
       with:
         images: ghcr.io/${{ github.repository }}/${{ matrix.binary }}
-    - run: echo "REPO_NAME=$(basename ${{ github.repository }})" >> "$GITHUB_ENV"
+    - run: echo "GITHUB_REPOSITORY_NAME=$(basename ${{ github.repository }})" >> "$GITHUB_ENV"
     - name: Build and push ${{ matrix.binary }} container image
       if: github.actor != 'dependabot[bot]'
       uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
@@ -48,4 +48,4 @@ jobs:
         tags: ${{ steps.docker_metadata.outputs.tags }}
         labels: ${{ steps.docker_metadata.outputs.labels }}
         file: deploy/${{ matrix.binary }}/Dockerfile
-        context: dist/${{ env.REPO_NAME }}_linux_amd64_v1
+        context: dist/${{ env.GITHUB_REPOSITORY_NAME }}_linux_amd64_v1
