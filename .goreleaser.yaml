@@ -38,28 +38,28 @@ signs:
 
 dockers:
 - image_templates:
-  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:{{ .Version }}-amd64"
+  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:{{ .Version }}-amd64"
   use: buildx
-  dockerfile: deploy/{{ .Binary }}/Dockerfile
+  dockerfile: deploy/{{ .ArtifactName }}/Dockerfile
   build_flag_templates:
   - "--platform=linux/amd64"
 - image_templates:
-  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:{{ .Version }}-arm64v8"
+  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:{{ .Version }}-arm64v8"
   use: buildx
   goarch: arm64
-  dockerfile: deploy/{{ .Binary }}/Dockerfile
+  dockerfile: deploy/{{ .ArtifactName }}/Dockerfile
   build_flag_templates:
   - "--platform=linux/arm64/v8"
 
 docker_manifests:
-- name_template: "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:{{ .Version }}"
+- name_template: "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:{{ .Version }}"
   image_templates:
-  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:{{ .Version }}-amd64"
-  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:{{ .Version }}-arm64v8"
-- name_template: "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:latest"
+  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:{{ .Version }}-amd64"
+  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:{{ .Version }}-arm64v8"
+- name_template: "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:latest"
   image_templates:
-  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:{{ .Version }}-amd64"
-  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .Binary }}:{{ .Version }}-arm64v8"
+  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:{{ .Version }}-amd64"
+  - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/{{ .ArtifactName }}:{{ .Version }}-arm64v8"
 
 docker_signs:
 - args:
