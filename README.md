@@ -58,7 +58,7 @@ Then push some code to main:
     git checkout --orphan badges
     git rm -rf .
     rm -f .gitignore
-    echo 'This branch exists only to contains the coverage badge in the README on `main`.' > README.md
+    echo 'This branch exists only to store the coverage badge in the README on `main`.' > README.md
     git add README.md
     git commit -m 'chore: initialize the badges branch'
     git push origin badges
@@ -101,7 +101,7 @@ Configure the repository:
 
 1. Go to repository Settings > Rules > Rulesets, and import the `protect-default-branch.json` ruleset.
 
-1. That's it.
+That's it.
 
 ## How to contribute
 
