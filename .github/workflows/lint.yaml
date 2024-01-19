@@ -26,6 +26,8 @@ jobs:
       with:
         fetch-depth: 0
     - uses: wagoid/commitlint-github-action@5ce82f5d814d4010519d15f0552aec4f17a1e1fe # v5.4.5
+      with:
+        configFile: .github/commitlint.config.js
   lint-actions:
     permissions:
       contents: read
