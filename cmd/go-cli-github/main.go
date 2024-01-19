@@ -8,7 +8,7 @@ import (
 // CLI represents the command-line interface.
 type CLI struct {
 	Version VersionCmd `kong:"cmd,help='Print version information'"`
-	Serve   ServeCmd   `kong:"cmd,help='Example serve command'"`
+	Serve   ServeCmd   `kong:"cmd,default=1,help='(default) Example serve command'"`
 }
 
 func main() {
