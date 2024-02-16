@@ -25,7 +25,7 @@ jobs:
       env:
         PR_URL: ${{github.event.pull_request.html_url}}
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-    - name: Auto-approve Github actions
+    - name: Auto-approve Github maintained actions
       if: contains(steps.metadata.outputs.dependency-names, 'github/codeql-action')
       run: gh pr review --approve "$PR_URL"
       env:
