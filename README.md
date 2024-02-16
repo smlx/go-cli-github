@@ -23,7 +23,7 @@ It also automatically builds and tests your code using [GitHub Actions](https://
 * Test Pull Requests using `go test`.
 * Build Docker images from Pull Requests for manual testing and review.
 * Static code analysis using [CodeQL](https://codeql.github.com/) and [Go Report Card](https://goreportcard.com/).
-* Test coverage analysis using [Coveralls](https://coveralls.io/).
+* Coverage analysis using the [go-test-coverage action](https://github.com/vladopajic/go-test-coverage).
 * Security analysis using [OpenSSF](https://securityscorecards.dev).
 
 ## How to use
