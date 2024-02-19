@@ -98,7 +98,11 @@ Configure the repository:
 
 1. Go to repository Settings > Code security and analysis, and enable:
 
-    * Private vulnerability reporting
+    * Dependabot
+        * Private vulnerability reporting
+        * Grouped security updates
+    * Secret Scanning
+        * Push protection
 
 1. Go to repository Settings > Rules > Rulesets, and import the `protect-default-branch.json` ruleset.
 
