@@ -71,8 +71,6 @@ Then customize the code for your repository:
 1. Update the code for your project:
 
     * rename `cmd/go-cli-github` to `cmd/$YOUR_COMMAND`
-    * rename `deploy/go-cli-github` to `deploy/$YOUR_COMMAND`
-    * update `deploy/$YOUR_COMMAND/Dockerfile`
     * update `.github/workflows/build.yaml`, replacing `go-cli-github` with `$YOUR_COMMAND`.
     * update `.goreleaser.yaml` to build `cmd/$YOUR_COMMAND`
     * update the links at the top of `README.md`
