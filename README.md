@@ -99,6 +99,8 @@ Configure the repository:
     * Private vulnerability reporting
     * Dependabot
         * Grouped security updates
+    * Code Scanning
+        * CodeQL analysis > Set up > Default
     * Secret Scanning
         * Push protection
 
