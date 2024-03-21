@@ -22,9 +22,6 @@ builds:
 changelog:
   use: github-native
 
-sboms:
-- artifacts: archive
-
 signs:
 - cmd: cosign
   signature: "${artifact}.sig"
