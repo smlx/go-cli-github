@@ -69,9 +69,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Move sbom to avoid dirty git
-      run: |
-        mkdir -p ./dist
-        mv "$GITHUB_SBOM_PATH" ./dist/sbom.spdx.json
+      run: mv "$GITHUB_SBOM_PATH" ./sbom.spdx.json
       env:
         GITHUB_SBOM_PATH: ${{ steps.sbom.outputs.fileName }}
     - uses: goreleaser/goreleaser-action@7ec5c2b0c6cdda6e8bbb49444bc797dd33d74dd8 # v5.0.0
@@ -80,4 +78,4 @@ jobs:
         args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_SBOM_PATH: ./dist/sbom.spdx.json
+        GITHUB_SBOM_PATH: ./sbom.spdx.json
