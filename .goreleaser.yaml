@@ -74,4 +74,4 @@ docker_signs:
 release:
   extra_files:
   - glob: "{{ .Env.GITHUB_SBOM_PATH }}"
-    name_template: "go-cli-github.v{{ .Version }}.sbom.spdx.json"
+    name_template: "{{ .ProjectName }}.v{{ .Version }}.sbom.spdx.json"
