@@ -25,6 +25,7 @@ It also automatically builds and tests your code using [GitHub Actions](https://
 * Static code analysis using [CodeQL](https://codeql.github.com/) and [Go Report Card](https://goreportcard.com/).
 * Coverage analysis using the [go-test-coverage action](https://github.com/vladopajic/go-test-coverage).
 * Security analysis using [OpenSSF](https://securityscorecards.dev).
+* Signed binary artifacts using [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign).
 
 ## How to use
 
@@ -114,3 +115,18 @@ Issues are welcome.
 
 PRs are also welcome, but keep in mind that this is a very opinionated template, so not all changes will be accepted.
 PRs also need to ensure that test coverage remains high, and best practices are followed.
+
+## How to verify binary signatures
+
+1. Download the three `checksums` files. They should end in `_checksums.txt`, `_checksums.txt.pem`, and `_checksums.txt.sig`.
+2. Verify using [cosign](https://github.com/sigstore/cosign). For example:
+
+    ```bash
+    cosign verify-blob \
+      --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+      --certificate-identity=https://github.com/smlx/go-cli-github/.github/workflows/release.yaml@refs/heads/main \
+      --signature ./go-cli-github_0.13.0_checksums.txt.sig \
+      --cert ./go-cli-github_0.13.0_checksums.txt.pem \
+      ./go-cli-github_0.13.0_checksums.txt
+    Verified OK
+    ```
