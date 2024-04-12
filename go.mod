@@ -3,7 +3,7 @@ module github.com/smlx/go-cli-github
 go 1.22
 
 require (
-	github.com/alecthomas/assert/v2 v2.7.0
+	github.com/alecthomas/assert/v2 v2.8.1
 	github.com/alecthomas/kong v0.9.0
 )
 
