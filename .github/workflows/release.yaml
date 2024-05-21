@@ -81,13 +81,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_SBOM_PATH: ./sbom.spdx.json
-    # parse metadata to the format required for image attestation
+    # parse artifacts to the format required for image attestation
     - run: |
-        echo "digest=$(echo "$METADATA" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test(":v"))|.extra.Digest')" >> "$GITHUB_OUTPUT"
-        echo "name=$(echo "$METADATA" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test(":v"))|.name|split(":")[0]')" >> "$GITHUB_OUTPUT"
-      id: artifact_metadata
+        echo "digest=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test(":v"))|.extra.Digest')" >> "$GITHUB_OUTPUT"
+        echo "name=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test(":v"))|.name|split(":")[0]')" >> "$GITHUB_OUTPUT"
+      id: image_metadata
       env:
-        METADATA: ${{steps.goreleaser.outputs.metadata}}
+        ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}
     # attest archives
     - uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
       with:
@@ -95,6 +95,6 @@ jobs:
     # attest images
     - uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
       with:
-        subject-digest: ${{steps.artifact_metadata.outputs.digest}}
-        subject-name: ${{steps.artifact_metadata.outputs.name}}
+        subject-digest: ${{steps.image_metadata.outputs.digest}}
+        subject-name: ${{steps.image_metadata.outputs.name}}
         push-to-registry: true
