@@ -45,6 +45,8 @@ jobs:
       packages: write
       # use OIDC token for signing
       id-token: write
+      # required by attest-build-provenance
+      attestations: write
     needs: release-tag
     if: needs.release-tag.outputs.new-tag == 'true'
     runs-on: ubuntu-latest
@@ -63,7 +65,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Set up environment
       run: echo "GOVERSION=$(go version)" >> "$GITHUB_ENV"
-    - uses: sigstore/cosign-installer@59acb6260d9c0ba8f4a2f9d9b48431a222b68e20 # v3.5.0
     - uses: advanced-security/sbom-generator-action@375dee8e6144d9fd0ec1f5667b4f6fb4faacefed # v0.0.1
       id: sbom
       env:
@@ -80,7 +81,20 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_SBOM_PATH: ./sbom.spdx.json
-    - run: echo metadata && echo "$METADATA" && echo artifacts && echo "$ARTIFACTS"
+    # parse metadata to the format required for image attestation
+    - run: |
+        echo "digest=$(echo "$METADATA" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test(":v"))|.extra.Digest')" >> "$GITHUB_OUTPUT"
+        echo "name=$(echo "$METADATA" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test(":v"))|.name|split(":")[0]')" >> "$GITHUB_OUTPUT"
+      id: artifact_metadata
       env:
         METADATA: ${{steps.goreleaser.outputs.metadata}}
-        ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}
+    # attest archives
+    - uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
+      with:
+        subject-path: "dist/*.tar.gz"
+    # attest images
+    - uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
+      with:
+        subject-digest: ${{steps.artifact_metadata.outputs.digest}}
+        subject-name: ${{steps.artifact_metadata.outputs.name}}
+        push-to-registry: true
