@@ -73,9 +73,14 @@ jobs:
       env:
         GITHUB_SBOM_PATH: ${{ steps.sbom.outputs.fileName }}
     - uses: goreleaser/goreleaser-action@7ec5c2b0c6cdda6e8bbb49444bc797dd33d74dd8 # v5.0.0
+      id: goreleaser
       with:
         version: latest
         args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_SBOM_PATH: ./sbom.spdx.json
+    - run: echo metadata && echo "$METADATA" && echo artifacts && echo "$ARTIFACTS"
+      env:
+        METADATA: ${{steps.goreleaser.outputs.metadata}}
+        ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}

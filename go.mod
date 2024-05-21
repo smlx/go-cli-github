@@ -1,6 +1,6 @@
 module github.com/smlx/go-cli-github
 
-go 1.22
+go 1.22.2
 
 require (
 	github.com/alecthomas/assert/v2 v2.8.1
