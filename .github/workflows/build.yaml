@@ -27,10 +27,6 @@ jobs:
       with:
         version: latest
         args: build --clean --debug --single-target --snapshot
-    - run: echo metadata && echo "$METADATA" && echo artifacts && echo "$ARTIFACTS"
-      env:
-        METADATA: ${{steps.goreleaser.outputs.metadata}}
-        ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}
     - name: Login to GHCR
       if: github.actor != 'dependabot[bot]'
       uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3.1.0
