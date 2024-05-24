@@ -12,18 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       new-tag: ${{ steps.ccv.outputs.new-tag }}
-      new-tag-version: ${{ steps.ccv.outputs.new-tag-version }}
     steps:
     - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
       with:
         fetch-depth: 0
-    - name: Configure git
-      run: |
-        git config --global user.name "$GITHUB_ACTOR"
-        git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-    - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
-      with:
-        go-version: stable
     - name: Bump tag if necessary
       id: ccv
       uses: smlx/ccv@c5f6769c943c082c4e8d8ccf2ec4b6f5f517e1f2 # v0.7.3
@@ -31,7 +23,7 @@ jobs:
     permissions:
       # create release
       contents: write
-      # push docker images to regsitry
+      # push docker images to registry
       packages: write
       # use OIDC token for signing
       id-token: write
