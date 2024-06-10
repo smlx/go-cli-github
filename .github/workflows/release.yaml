@@ -13,12 +13,12 @@ jobs:
     outputs:
       new-tag: ${{ steps.ccv.outputs.new-tag }}
     steps:
-    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       with:
         fetch-depth: 0
     - name: Bump tag if necessary
       id: ccv
-      uses: smlx/ccv@c5f6769c943c082c4e8d8ccf2ec4b6f5f517e1f2 # v0.7.3
+      uses: smlx/ccv@d3de774e9b607b079940a7a86952f44643743336 # v0.9.0
   release-build:
     permissions:
       # create release
@@ -33,14 +33,14 @@ jobs:
     if: needs.release-tag.outputs.new-tag == 'true'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       with:
         fetch-depth: 0
-    - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+    - uses: actions/setup-go@cdcb36043654635271a94b9a6d1392de5bb323a7 # v5.0.1
       with:
         go-version: stable
     - name: Login to GHCR
-      uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3.1.0
+      uses: docker/login-action@0d4c9c5ea7693da7b068278f7b52bda2a190a446 # v3.2.0
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
@@ -71,11 +71,11 @@ jobs:
       env:
         ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}
     # attest archives
-    - uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
+    - uses: actions/attest-build-provenance@49df96e17e918a15956db358890b08e61c704919 # v1.2.0
       with:
         subject-path: "dist/*.tar.gz"
     # attest images
-    - uses: actions/attest-build-provenance@173725a1209d09b31f9d30a3890cf2757ebbff0d # v1.1.2
+    - uses: actions/attest-build-provenance@49df96e17e918a15956db358890b08e61c704919 # v1.2.0
       with:
         subject-digest: ${{steps.image_metadata.outputs.digest}}
         subject-name: ${{steps.image_metadata.outputs.name}}
