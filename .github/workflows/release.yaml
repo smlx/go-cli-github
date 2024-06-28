@@ -25,9 +25,8 @@ jobs:
       contents: write
       # push docker images to registry
       packages: write
-      # use OIDC token for signing
-      id-token: write
       # required by attest-build-provenance
+      id-token: write
       attestations: write
     needs: release-tag
     if: needs.release-tag.outputs.new-tag == 'true'
