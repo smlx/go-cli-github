@@ -69,7 +69,6 @@ jobs:
         subject-path: "dist/*.tar.gz"
     # parse artifacts to the format required for image attestation
     - run: |
-        echo "$ARTIFACTS"
         echo "digest=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test("go-cli-github:v"))|.extra.Digest')" >> "$GITHUB_OUTPUT"
         echo "name=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test("go-cli-github:v"))|.name|split(":")[0]')" >> "$GITHUB_OUTPUT"
       id: image_metadata_go_cli_github
