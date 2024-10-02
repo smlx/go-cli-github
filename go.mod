@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/alecthomas/assert/v2 v2.10.0
-	github.com/alecthomas/kong v0.9.0
+	github.com/alecthomas/kong v1.2.1
 )
 
 require (
