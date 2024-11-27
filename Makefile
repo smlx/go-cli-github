@@ -14,8 +14,7 @@ generate: mod-tidy
 
 .PHONY: build
 build:
-	GOVERSION=$$(go version) \
-						goreleaser build --clean --debug --single-target --snapshot
+	goreleaser build --clean --debug --single-target --snapshot
 
 .PHONY: lint
 lint:
