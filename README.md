@@ -90,19 +90,33 @@ Configure the repository:
 
 1. Go to repository Settings > General:
 
-    * Disable wiki and projects (unless you plan to use them!)
-    * Allow only merge commits for Pull Requests
-    * Allow auto-merge
-    * Automatically delete head branches
+    1. Features
 
-1. Go to repository Settings > Code security and analysis, and enable:
+        * Disable wiki and projects (unless you plan to use them!)
+
+    1. Pull Requests
+
+        * Allow merge commits only for Pull Requests
+        * Allow auto-merge
+        * Automatically delete head branches
+
+1. Go to repository Settings > Advanced Security, and enable:
 
     * Private vulnerability reporting
+
     * Dependabot
+
+        * Dependabot alerts
+        * Dependabot security updates
         * Grouped security updates
+        * Dependabot on Actions runners
+
     * Code Scanning
+
         * CodeQL analysis > Set up > Default
-    * Secret Scanning
+
+    * Secret Protection
+
         * Push protection
 
 1. Go to repository Settings > Rules > Rulesets, and import the `protect-default-branch.json` ruleset.
