@@ -61,10 +61,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_SBOM_PATH: ./sbom.spdx.json
-    # attest archives
+    # attest artefacts
     - uses: actions/attest-build-provenance@db473fddc028af60658334401dc6fa3ffd8669fd # v2.3.0
       with:
-        subject-path: "dist/*.tar.gz"
+        subject-path: |
+          dist/*.tar.gz
+          sbom.spdx.json
     # parse artifacts to the format required for image attestation
     - run: |
         echo "digest=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test("go-cli-github:v"))|.extra.Digest')" >> "$GITHUB_OUTPUT"
