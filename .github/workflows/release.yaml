@@ -60,7 +60,6 @@ jobs:
         args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_SBOM_PATH: ./sbom.spdx.json
     # attest artefacts
     - uses: actions/attest-build-provenance@db473fddc028af60658334401dc6fa3ffd8669fd # v2.3.0
       with:

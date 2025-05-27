@@ -83,5 +83,5 @@ docker_manifests:
 
 release:
   extra_files:
-  - glob: "{{ .Env.GITHUB_SBOM_PATH }}"
+  - glob: ./sbom.spdx.json
     name_template: "{{ .ProjectName }}.v{{ .Version }}.sbom.spdx.json"
