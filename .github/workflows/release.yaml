@@ -61,7 +61,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # attest artefacts
-    - uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
+    - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
       with:
         subject-path: |
           dist/*.tar.gz
@@ -80,12 +80,12 @@ jobs:
       env:
         ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}
     # attest images
-    - uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
+    - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
       with:
         subject-digest: ${{steps.image_metadata_go_cli_github.outputs.digest}}
         subject-name: ${{steps.image_metadata_go_cli_github.outputs.name}}
         push-to-registry: true
-    - uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
+    - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
       with:
         subject-digest: ${{steps.image_metadata_another_binary.outputs.digest}}
         subject-name: ${{steps.image_metadata_another_binary.outputs.name}}
