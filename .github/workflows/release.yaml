@@ -38,13 +38,14 @@ jobs:
     - uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
       with:
         go-version: stable
+    - uses: docker/setup-buildx-action@v3
     - name: Login to GHCR
       uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Export SBOM in SPDX JSON format
+    - name: Export SBOM for binary in SPDX JSON format
       # https://docs.github.com/en/rest/dependency-graph/sboms?apiVersion=2022-11-28
       run: |
         gh api \
@@ -60,33 +61,12 @@ jobs:
         args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    # attest artefacts
+    # attest artifacts
     - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
       with:
-        subject-path: |
-          dist/*.tar.gz
-          sbom.spdx.json
-    # parse artifacts to the format required for image attestation
-    - run: |
-        echo "digest=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test("go-cli-github:v"))|.extra.Digest')" >> "$GITHUB_OUTPUT"
-        echo "name=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test("go-cli-github:v"))|.name|split(":")[0]')" >> "$GITHUB_OUTPUT"
-      id: image_metadata_go_cli_github
-      env:
-        ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}
-    - run: |
-        echo "digest=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test("another-binary:v"))|.extra.Digest')" >> "$GITHUB_OUTPUT"
-        echo "name=$(echo "$ARTIFACTS" | jq -r '.[]|select(.type=="Docker Manifest")|select(.name|test("another-binary:v"))|.name|split(":")[0]')" >> "$GITHUB_OUTPUT"
-      id: image_metadata_another_binary
-      env:
-        ARTIFACTS: ${{steps.goreleaser.outputs.artifacts}}
+        subject-checksums: ./dist/checksums.txt
     # attest images
     - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
       with:
-        subject-digest: ${{steps.image_metadata_go_cli_github.outputs.digest}}
-        subject-name: ${{steps.image_metadata_go_cli_github.outputs.name}}
-        push-to-registry: true
-    - uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3.0.0
-      with:
-        subject-digest: ${{steps.image_metadata_another_binary.outputs.digest}}
-        subject-name: ${{steps.image_metadata_another_binary.outputs.name}}
+        subject-checksums: ./dist/digests.txt
         push-to-registry: true
