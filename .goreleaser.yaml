@@ -38,6 +38,7 @@ dockers_v2:
   - latest
   build_args:
     BINARY: go-cli-github
+  sbom: true
 - id: another-binary
   ids:
   - another-binary
