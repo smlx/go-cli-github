@@ -35,6 +35,7 @@ dockers_v2:
   - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/go-cli-github"
   tags:
   - "v{{ .Version }}"
+  - latest
   build_args:
     BINARY: go-cli-github
 - id: another-binary
@@ -44,6 +45,7 @@ dockers_v2:
   - "ghcr.io/{{ .Env.GITHUB_REPOSITORY }}/another-binary"
   tags:
   - "v{{ .Version }}"
+  - latest
   build_args:
     BINARY: another-binary
 
