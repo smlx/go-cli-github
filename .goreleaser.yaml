@@ -24,6 +24,14 @@ builds:
   binary: another-binary
   main: ./cmd/another-binary
 
+checksum:
+  name_template: checksums.txt
+
+sboms:
+- ids:
+  - go-cli-github
+  - another-binary
+
 changelog:
   use: github-native
 
@@ -48,11 +56,3 @@ dockers_v2:
   - latest
   build_args:
     BINARY: another-binary
-
-release:
-  extra_files:
-  - glob: ./sbom.spdx.json
-    name_template: "{{ .ProjectName }}.v{{ .Version }}.sbom.spdx.json"
-
-checksum:
-  name_template: checksums.txt
