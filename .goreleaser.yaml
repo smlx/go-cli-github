@@ -28,10 +28,7 @@ checksum:
   name_template: checksums.txt
 
 sboms:
-- ids:
-  - go-cli-github
-  - another-binary
-  disable: false
+- artifacts: archive
 
 changelog:
   use: github-native
