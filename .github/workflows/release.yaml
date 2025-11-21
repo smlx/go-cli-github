@@ -58,7 +58,7 @@ jobs:
       id: goreleaser
       with:
         version: latest
-        args: release --clean --verbose
+        args: release --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # attest artifacts
