@@ -28,7 +28,7 @@ checksum:
   name_template: checksums.txt
 
 sboms:
-- artifacts: archive
+- artifacts: source
 
 changelog:
   use: github-native
