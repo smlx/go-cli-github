@@ -91,6 +91,10 @@ Configure the repository:
 
 1. Go to repository Settings > General:
 
+    1. Releases
+
+        * Enable release immutability
+
     1. Features
 
         * Disable wiki and projects (unless you plan to use them!)
