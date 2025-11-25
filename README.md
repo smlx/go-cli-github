@@ -15,17 +15,18 @@ It also automatically builds and tests your code using [GitHub Actions](https://
 
 ## Features
 
-* Use [GoReleaser](https://goreleaser.com/) to automatically build and create GitHub Releases and Docker images on merge to `main`.
+* Use [GoReleaser](https://goreleaser.com/) to automatically build and create GitHub Releases and container images on merge to `main`.
 
     * This uses the [Conventional Commits Versioner](https://github.com/smlx/ccv) to automatically version each release.
 
-* Lint your commit messages, and your Go, GitHub Action, and Dockerfile code.
+* Lint your commit messages, Go code, GitHub Actions, and Dockerfiles.
 * Test Pull Requests using `go test`.
-* Build Docker images from Pull Requests for manual testing and review.
+* Build container images from Pull Requests and push them to the GitHub container registry for manual testing and review.
 * Static code analysis using [CodeQL](https://codeql.github.com/) and [Go Report Card](https://goreportcard.com/).
 * Coverage analysis using the [go-test-coverage action](https://github.com/vladopajic/go-test-coverage).
 * Security analysis using [OpenSSF](https://securityscorecards.dev).
-* Signed binary artifacts using [artifact attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+* Signed binary and container release artifacts using [artifact attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
+* SBOM generation for both release artifacts and container images, with image SBOMs pushed to the container registry.
 
 ## How to use
 
