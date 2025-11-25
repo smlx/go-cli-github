@@ -27,11 +27,8 @@ builds:
 checksum:
   name_template: checksums.txt
 
-source:
-  enabled: true
-
 sboms:
-- artifacts: source
+- artifacts: archive
 
 changelog:
   use: github-native
