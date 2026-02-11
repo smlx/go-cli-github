@@ -26,5 +26,5 @@ fuzz: mod-tidy generate
 
 .PHONY: cover
 cover: mod-tidy generate
-	go test -v -covermode=atomic -coverprofile=cover.out -coverpkg=./... ./...
+	go test -v -count=1 -covermode=atomic -coverprofile=cover.out -coverpkg=./... ./...
 	go tool cover -html=cover.out
