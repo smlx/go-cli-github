@@ -43,7 +43,7 @@ jobs:
     # container which is automatically pulled and run during the container
     # image build. However, because the release process also generates an SBOM
     # for the binaries attached to the GitHub release (see the "sboms" section
-    # in .gorleaser.yaml), it also needs to install syft into the action
+    # in .goreleaser.yaml), it also needs to install syft into the action
     # environment.
     - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
     - uses: anchore/sbom-action/download-syft@deef08a0db64bfad603422135db61477b16cef56 # v0.22.1
