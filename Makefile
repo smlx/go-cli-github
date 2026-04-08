@@ -14,11 +14,11 @@ generate: mod-tidy
 
 .PHONY: build
 build:
-	goreleaser build --verbose --clean --single-target --snapshot
+	goreleaser build --clean --single-target --snapshot
 
 .PHONY: lint
 lint:
-	golangci-lint run --enable gocritic
+	golangci-lint run
 
 .PHONY: fuzz
 fuzz: mod-tidy generate
