@@ -14,7 +14,7 @@ generate: mod-tidy
 
 .PHONY: build
 build:
-	goreleaser build --verbose --clean --single-target --snapshot
+	goreleaser build --clean --single-target --snapshot
 
 .PHONY: lint
 lint:
