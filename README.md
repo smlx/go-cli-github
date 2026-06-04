@@ -2,7 +2,6 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/smlx/go-cli-github.svg)](https://pkg.go.dev/github.com/smlx/go-cli-github)
 [![Release](https://github.com/smlx/go-cli-github/actions/workflows/release.yaml/badge.svg)](https://github.com/smlx/go-cli-github/actions/workflows/release.yaml)
-[![coverage](https://raw.githubusercontent.com/smlx/go-cli-github/badges/.badges/main/coverage.svg)](https://github.com/smlx/go-cli-github/actions/workflows/coverage.yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/smlx/go-cli-github)](https://goreportcard.com/report/github.com/smlx/go-cli-github)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/smlx/go-cli-github/badge)](https://securityscorecards.dev/viewer/?uri=github.com/smlx/go-cli-github)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8168/badge)](https://www.bestpractices.dev/projects/8168)
@@ -23,7 +22,7 @@ It also automatically builds and tests your code using [GitHub Actions](https://
 * Test Pull Requests using `go test`.
 * Build container images from Pull Requests and push them to the GitHub container registry for manual testing and review.
 * Static code analysis using [CodeQL](https://codeql.github.com/) and [Go Report Card](https://goreportcard.com/).
-* Coverage analysis using the [go-test-coverage action](https://github.com/vladopajic/go-test-coverage).
+* Coverage analysis using the [GitHub coverage API](https://docs.github.com/en/code-security/how-tos/maintain-quality-code/set-up-code-coverage).
 * Security analysis using [OpenSSF](https://securityscorecards.dev).
 * Signed binary and container release artifacts using [artifact attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
 * SBOM generation for both release artifacts and container images, with image SBOMs pushed to the container registry.
@@ -52,18 +51,6 @@ Then push some code to main:
     git add .
     git commit -am 'chore: create repository from template'
     git push -u origin main
-    ```
-
-1. Create the `badges` branch for storing the README coverage badge.
-
-    ```bash
-    git checkout --orphan badges
-    git rm -rf .
-    rm -f .gitignore
-    echo 'This branch exists only to store the coverage badge in the README on `main`.' > README.md
-    git add README.md
-    git commit -m 'chore: initialize the badges branch'
-    git push origin badges
     ```
 
 Then customize the code for your repository:
