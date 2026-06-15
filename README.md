@@ -92,13 +92,14 @@ Configure the repository:
         * Allow auto-merge
         * Automatically delete head branches
 
-1. Go to repository Settings > Advanced Security, and enable:
+1. Go to repository Settings > Advanced Security, and ensure these are enabled:
 
     * Private vulnerability reporting
 
     * Dependabot
 
         * Dependabot alerts
+        * Dependabot malware alerts
         * Dependabot security updates
         * Grouped security updates
         * Dependabot on Actions runners
