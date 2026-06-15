@@ -64,6 +64,7 @@ Then customize the code for your repository:
     * update `.goreleaser.yaml` to build `cmd/$YOUR_COMMAND`
     * update the links at the top of `README.md`
     * update the contact email in `SECURITY.md`
+    * if you aren't [in an enterprise that has code quality enabled](https://github.com/orgs/community/discussions/194833#discussioncomment-17174472), delete the coverage workflow (`.github/workflows/coverage.yaml`)
 
 1. Commit and push:
 
