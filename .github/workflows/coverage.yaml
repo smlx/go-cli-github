@@ -3,11 +3,16 @@ on:
   push:
     branches:
     - main
+  pull_request:
+    branches:
+    - main
 permissions: {}
 jobs:
   coverage:
     permissions:
-      contents: write
+      contents: read
+      code-quality: write
+      pull-requests: read # not sure if this is required
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -17,11 +22,15 @@ jobs:
     - name: Calculate coverage
       run: |
         go test -count=1 -v -covermode=atomic -coverprofile=cover.out -coverpkg=./... ./...
-    - name: Generage coverage badge
-      uses: vladopajic/go-test-coverage@a93b868a4cbcbf18dc3781650fad241f0020e609 # v2.18.8
+    - name: Convert Go coverage profile to cobertuba format
+      run: |
+        go install github.com/boumenot/gocover-cobertura@v1.5.0
+        gocover-cobertura < cover.out > cover.xml
+    - name: Upload coverage to GitHub API
+      uses: actions/upload-code-coverage@abb5995db9e0199b0e2bb9dbd136fce4cb1ec4d3 # v1.3.0
       with:
-        profile: cover.out
-        local-prefix: github.com/${{ github.repository }}
-        git-token: ${{ secrets.GITHUB_TOKEN }}
-        # orphan branch for storing badges
-        git-branch: badges
+        file: cover.xml
+        language: Go
+        label: code-coverage/go-test
+        # feature only available for team and enterprise accounts
+        fail-on-error: false
