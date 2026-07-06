@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -11,7 +12,7 @@ import (
 type ServeCmd struct{}
 
 // Run the serve command.
-func (*ServeCmd) Run() error {
+func (*ServeCmd) Run(ctx context.Context) error {
 	fmt.Println(server.New(time.Now).Serve())
 	return nil
 }
