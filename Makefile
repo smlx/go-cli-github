@@ -28,3 +28,7 @@ fuzz: mod-tidy generate
 cover: mod-tidy generate
 	go test -v -count=1 -covermode=atomic -coverprofile=cover.out -coverpkg=./... ./...
 	go tool cover -html=cover.out
+
+.PHONY: docs
+docs:
+	go run golang.org/x/pkgsite/cmd/pkgsite@latest -http=:8080
