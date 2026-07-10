@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"runtime"
@@ -18,7 +19,7 @@ var (
 type VersionCmd struct{}
 
 // Run the Version command.
-func (*VersionCmd) Run() error {
+func (*VersionCmd) Run(ctx context.Context) error {
 	v, err := json.Marshal(
 		struct {
 			ProjectName string

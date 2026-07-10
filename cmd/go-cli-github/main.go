@@ -2,6 +2,11 @@
 package main
 
 import (
+	"context"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/alecthomas/kong"
 )
 
@@ -12,10 +17,14 @@ type CLI struct {
 }
 
 func main() {
+	ctx, stop := signal.NotifyContext(
+		context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
 	// parse CLI config
 	cli := CLI{}
 	kctx := kong.Parse(&cli,
 		kong.UsageOnError(),
+		kong.BindFor(ctx),
 	)
 	// execute CLI
 	kctx.FatalIfErrorf(kctx.Run())
