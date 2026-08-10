@@ -59,8 +59,11 @@ Then customize the code for your repository:
 1. Update the code for your project:
 
     * rename `cmd/go-cli-github` to `cmd/$YOUR_COMMAND`
+        * if you only have one binary: `rm -rf cmd/another-binary`
     * update `.github/workflows/build.yaml`, replacing `go-cli-github` with `$YOUR_COMMAND`.
+        * if you only have one binary: delete references to `another-binary`
     * update `.goreleaser.yaml` to build `cmd/$YOUR_COMMAND`
+        * if you only have one binary: delete the YAML anchor and references to `another-binary`
     * update the links at the top of `README.md`
     * update the contact email in `SECURITY.md`
     * if you aren't [in an enterprise that has code quality enabled](https://github.com/orgs/community/discussions/194833#discussioncomment-17174472), delete the coverage workflow (`.github/workflows/coverage.yaml`)
