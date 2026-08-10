@@ -64,6 +64,11 @@ Then customize the code for your repository:
         * if you only have one binary: delete references to `another-binary`
     * update `.goreleaser.yaml` to build `cmd/$YOUR_COMMAND`
         * if you only have one binary: delete the YAML anchor and references to `another-binary`
+    * if you don't need docker images:
+        1. edit `.goreleaser.yaml` and delete `dockers_v2`
+        1. edit `.github/workflows/build.yaml` and delete the `build-image` job.
+        1. edit `.github/workflows/release.yaml` and delete the ghcr login, and image attestation steps.
+        1. delete `Dockerfile`
     * update the links at the top of `README.md`
     * update the contact email in `SECURITY.md`
     * if you aren't [in an enterprise that has code quality enabled](https://github.com/orgs/community/discussions/194833#discussioncomment-17174472), delete the coverage workflow (`.github/workflows/coverage.yaml`)
