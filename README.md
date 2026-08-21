@@ -49,12 +49,9 @@ Then push some code to main:
     git remote add origin git@github.com:smlx/newproject.git
     git add .
     git commit -am 'chore: create repository from template'
-    git push -u origin main
     ```
 
 Then customize the code for your repository:
-
-1. Check out a new branch to set up the repo `git checkout -b setup main`
 
 1. Update the code for your project:
 
@@ -81,9 +78,17 @@ Then customize the code for your repository:
     ```bash
     git add .
     git commit -am 'chore: update template for new project'
-    git push -u origin setup
+    git push -u origin main
     ```
-1. Open a PR, wait until all the checks go green, then merge the PR.
+
+1. Open a test PR, ensure all checks go green, then merge the PR. If workflows aren't green, commit and push to the branch until they are.
+
+    ```bash
+    git checkout -b setup main
+    git commit -m 'chore: test PR workflows' --allow-empty
+    git push -u origin setup
+    gh pr create --fill
+    ```
 
 Configure the repository:
 
