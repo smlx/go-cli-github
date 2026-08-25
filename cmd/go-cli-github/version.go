@@ -1,9 +1,7 @@
 package main
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
+	"encoding/json/v2"
 	"runtime"
 )
 
@@ -15,11 +13,8 @@ var (
 	version     string
 )
 
-// VersionCmd represents the `version` command.
-type VersionCmd struct{}
-
-// Run the Version command.
-func (*VersionCmd) Run(ctx context.Context) error {
+// formatVersionJSON formats version information as a JSON string.
+func formatVersionJSON() (string, error) {
 	v, err := json.Marshal(
 		struct {
 			ProjectName string
@@ -35,8 +30,7 @@ func (*VersionCmd) Run(ctx context.Context) error {
 			runtime.Version(),
 		})
 	if err != nil {
-		return err
+		return "", err
 	}
-	_, err = fmt.Println(string(v))
-	return err
+	return string(v), nil
 }
