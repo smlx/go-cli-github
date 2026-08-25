@@ -68,4 +68,5 @@ jobs:
     - uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
       with:
         subject-checksums: ./dist/digests.txt
-        push-to-registry: true
+        # temporary? work around https://github.com/actions/attest/issues/477
+        # push-to-registry: true
